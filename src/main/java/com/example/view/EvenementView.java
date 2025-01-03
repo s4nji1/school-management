@@ -23,17 +23,14 @@ public class EvenementView extends GridPane {
     public EvenementView() {
         evenementDAO = new EvenementDAOImpl();
 
-        // Set padding and layout
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
 
-        // Title
-        Label titleLabel = new Label("Gestion des Événements");
+        Label titleLabel = new Label("Gestion des Evenements");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-        // Input fields
         Label nomLabel = new Label("Nom:");
         TextField nomField = new TextField();
         Label dateLabel = new Label("Date:");
@@ -43,7 +40,6 @@ public class EvenementView extends GridPane {
         Label idUserLabel = new Label("ID Utilisateur:");
         TextField idUserField = new TextField();
 
-        // Buttons
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
@@ -51,7 +47,6 @@ public class EvenementView extends GridPane {
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Table view
         tableView = new TableView<>();
         TableColumn<Evenement, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNomEvent()));
@@ -67,11 +62,9 @@ public class EvenementView extends GridPane {
 
         tableView.getColumns().addAll(nomColumn, dateColumn, descriptionColumn, idUserColumn);
 
-        // Fetch data from database
         evenementList = FXCollections.observableArrayList(evenementDAO.afficherTous());
         tableView.setItems(evenementList);
 
-        // Add components to the layout
         this.add(titleLabel, 0, 0, 2, 1);
         this.add(nomLabel, 0, 1);
         this.add(nomField, 1, 1);
@@ -84,7 +77,6 @@ public class EvenementView extends GridPane {
         this.add(buttonBox, 0, 5, 2, 1);
         this.add(tableView, 0, 6, 2, 1);
 
-        // Button actions
         addButton.setOnAction(e -> {
             Evenement evenement = new Evenement(
                 0,

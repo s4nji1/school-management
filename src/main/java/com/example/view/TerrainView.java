@@ -21,23 +21,19 @@ public class TerrainView extends GridPane {
     public TerrainView() {
         terrainDAO = new TerrainDAOImpl();
 
-        // Set padding and layout
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
 
-        // Title
         Label titleLabel = new Label("Gestion des Terrains");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-        // Input fields
         Label nomTerrainLabel = new Label("Nom:");
         TextField nomTerrainField = new TextField();
         Label typeLabel = new Label("Type:");
         TextField typeField = new TextField();
 
-        // Buttons
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
@@ -45,7 +41,6 @@ public class TerrainView extends GridPane {
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Table view
         tableView = new TableView<>();
         TableColumn<Terrain, String> nomTerrainColumn = new TableColumn<>("Nom");
         nomTerrainColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNomTerrain()));
@@ -55,11 +50,9 @@ public class TerrainView extends GridPane {
 
         tableView.getColumns().addAll(nomTerrainColumn, typeColumn);
 
-        // Fetch data from database
         terrainList = FXCollections.observableArrayList(terrainDAO.afficherTous());
         tableView.setItems(terrainList);
 
-        // Add components to the layout
         this.add(titleLabel, 0, 0, 2, 1);
         this.add(nomTerrainLabel, 0, 1);
         this.add(nomTerrainField, 1, 1);
@@ -68,7 +61,6 @@ public class TerrainView extends GridPane {
         this.add(buttonBox, 0, 3, 2, 1);
         this.add(tableView, 0, 4, 2, 1);
 
-        // Button actions
         addButton.setOnAction(e -> {
             Terrain terrain = new Terrain(0, nomTerrainField.getText(), typeField.getText());
             terrainDAO.ajouter(terrain);

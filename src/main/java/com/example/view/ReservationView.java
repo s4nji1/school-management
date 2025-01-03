@@ -23,17 +23,14 @@ public class ReservationView extends GridPane {
     public ReservationView() {
         reservationDAO = new ReservationDAOImpl();
 
-        // Set padding and layout
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
 
-        // Title
-        Label titleLabel = new Label("Gestion des Réservations");
+        Label titleLabel = new Label("Gestion des Reservations");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-        // Input fields
         Label idUserLabel = new Label("ID Utilisateur:");
         TextField idUserField = new TextField();
         Label idEventLabel = new Label("ID Événement:");
@@ -42,10 +39,9 @@ public class ReservationView extends GridPane {
         TextField idSalleField = new TextField();
         Label idTerrainLabel = new Label("ID Terrain:");
         TextField idTerrainField = new TextField();
-        Label dateReservationLabel = new Label("Date Réservation:");
+        Label dateReservationLabel = new Label("Date Reservation:");
         DatePicker dateReservationPicker = new DatePicker();
 
-        // Buttons
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
@@ -53,12 +49,11 @@ public class ReservationView extends GridPane {
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Table view
         tableView = new TableView<>();
         TableColumn<Reservation, Integer> idUserColumn = new TableColumn<>("ID Utilisateur");
         idUserColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdUser()).asObject());
 
-        TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID Événement");
+        TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID Evenement");
         idEventColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdEvent()).asObject());
 
         TableColumn<Reservation, Integer> idSalleColumn = new TableColumn<>("ID Salle");
@@ -72,11 +67,9 @@ public class ReservationView extends GridPane {
 
         tableView.getColumns().addAll(idUserColumn, idEventColumn, idSalleColumn, idTerrainColumn, dateReservationColumn);
 
-        // Fetch data from database
         reservationList = FXCollections.observableArrayList(reservationDAO.afficherTous());
         tableView.setItems(reservationList);
 
-        // Add components to the layout
         this.add(titleLabel, 0, 0, 2, 1);
         this.add(idUserLabel, 0, 1);
         this.add(idUserField, 1, 1);
@@ -91,7 +84,6 @@ public class ReservationView extends GridPane {
         this.add(buttonBox, 0, 6, 2, 1);
         this.add(tableView, 0, 7, 2, 1);
 
-        // Button actions
         addButton.setOnAction(e -> {
             Reservation reservation = new Reservation(0,
                     Integer.parseInt(idUserField.getText()),

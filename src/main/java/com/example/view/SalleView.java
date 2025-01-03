@@ -21,23 +21,19 @@ public class SalleView extends GridPane {
     public SalleView() {
         salleDAO = new SalleDAOImpl();
 
-        // Set padding and layout
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
 
-        // Title
         Label titleLabel = new Label("Gestion des Salles");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-        // Input fields
         Label nomLabel = new Label("Nom de la Salle:");
         TextField nomField = new TextField();
-        Label capaciteLabel = new Label("Capacité:");
+        Label capaciteLabel = new Label("Capacite:");
         TextField capaciteField = new TextField();
 
-        // Buttons
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
@@ -45,21 +41,18 @@ public class SalleView extends GridPane {
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Table view
         tableView = new TableView<>();
         TableColumn<Salle, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNomSalle()));
 
-        TableColumn<Salle, Integer> capaciteColumn = new TableColumn<>("Capacité");
+        TableColumn<Salle, Integer> capaciteColumn = new TableColumn<>("Capacite");
         capaciteColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getCapacite()));
 
         tableView.getColumns().addAll(nomColumn, capaciteColumn);
 
-        // Fetch data from database
         salleList = FXCollections.observableArrayList(salleDAO.afficherTous());
         tableView.setItems(salleList);
 
-        // Add components to the layout
         this.add(titleLabel, 0, 0, 2, 1);
         this.add(nomLabel, 0, 1);
         this.add(nomField, 1, 1);
@@ -68,7 +61,6 @@ public class SalleView extends GridPane {
         this.add(buttonBox, 0, 3, 2, 1);
         this.add(tableView, 0, 4, 2, 1);
 
-        // Button actions
         addButton.setOnAction(e -> {
             Salle salle = new Salle(0, nomField.getText(), Integer.parseInt(capaciteField.getText()));
             salleDAO.ajouter(salle);

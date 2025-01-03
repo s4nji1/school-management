@@ -21,17 +21,14 @@ public class UtilisateurView extends GridPane {
     public UtilisateurView() {
         utilisateurDAO = new UtilisateurDAOImpl();
 
-        // Set padding and layout
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
 
-        // Title
         Label titleLabel = new Label("Gestion des Utilisateurs");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-        // Input fields
         Label nomLabel = new Label("Nom:");
         TextField nomField = new TextField();
         Label prenomLabel = new Label("Prenom:");
@@ -41,7 +38,6 @@ public class UtilisateurView extends GridPane {
         Label typeLabel = new Label("Type:");
         TextField typeField = new TextField();
 
-        // Buttons
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
@@ -49,7 +45,6 @@ public class UtilisateurView extends GridPane {
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Table view
         tableView = new TableView<>();
         TableColumn<Utilisateur, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNom()));
@@ -65,11 +60,9 @@ public class UtilisateurView extends GridPane {
 
         tableView.getColumns().addAll(nomColumn, prenomColumn, emailColumn, typeColumn);
 
-        // Fetch data from database
         userList = FXCollections.observableArrayList(utilisateurDAO.afficherTous());
         tableView.setItems(userList);
 
-        // Add components to the layout
         this.add(titleLabel, 0, 0, 2, 1);
         this.add(nomLabel, 0, 1);
         this.add(nomField, 1, 1);
@@ -82,7 +75,6 @@ public class UtilisateurView extends GridPane {
         this.add(buttonBox, 0, 5, 2, 1);
         this.add(tableView, 0, 6, 2, 1);
 
-        // Button actions
         addButton.setOnAction(e -> {
             Utilisateur utilisateur = new Utilisateur(nomField.getText(), prenomField.getText(), emailField.getText(), typeField.getText());
             utilisateurDAO.ajouter(utilisateur);
