@@ -38,7 +38,7 @@ public class ReservationView extends GridPane {
         Label idUserLabel = createStyledLabel("ID Utilisateur:");
         TextField idUserField = createStyledTextField();
 
-        Label idEventLabel = createStyledLabel("ID Événement:");
+        Label idEventLabel = createStyledLabel("ID Evenement:");
         TextField idEventField = createStyledTextField();
 
         Label idSalleLabel = createStyledLabel("ID Salle:");
@@ -65,7 +65,7 @@ public class ReservationView extends GridPane {
         TableColumn<Reservation, Integer> idUserColumn = new TableColumn<>("ID Utilisateur");
         idUserColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdUser()).asObject());
 
-        TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID Événement");
+        TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID evenement");
         idEventColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdEvent()).asObject());
 
         TableColumn<Reservation, Integer> idSalleColumn = new TableColumn<>("ID Salle");
@@ -74,7 +74,7 @@ public class ReservationView extends GridPane {
         TableColumn<Reservation, Integer> idTerrainColumn = new TableColumn<>("ID Terrain");
         idTerrainColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdTerrain()).asObject());
 
-        TableColumn<Reservation, LocalDate> dateReservationColumn = new TableColumn<>("Date Réservation");
+        TableColumn<Reservation, LocalDate> dateReservationColumn = new TableColumn<>("Date Reservation");
         dateReservationColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getDateReservation()));
 
         tableView.getColumns().addAll(idUserColumn, idEventColumn, idSalleColumn, idTerrainColumn, dateReservationColumn);

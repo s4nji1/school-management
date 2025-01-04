@@ -11,11 +11,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class UtilisateurView extends GridPane {
+public class UtilisateurView extends GridPane {//disposition en grille pour organises les elem graphique
 
-    private TableView<Utilisateur> tableView;
-    private ObservableList<Utilisateur> userList;
-    private UtilisateurDAOImpl utilisateurDAO;
+    private TableView<Utilisateur> tableView;//tableau dans le quel on va afficher users 
+    private ObservableList<Utilisateur> userList;//pour socker les users
+    private UtilisateurDAOImpl utilisateurDAO;//interagir avec bd a travers UtilisateurDao
 
     @SuppressWarnings("unchecked")
     public UtilisateurView() {
@@ -26,7 +26,7 @@ public class UtilisateurView extends GridPane {
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
         this.setStyle("-fx-background-color: #2e2e40; -fx-text-fill: white;");
-
+//le formulaire creer user
         Label titleLabel = new Label("Gestion des Utilisateurs");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
 
@@ -45,7 +45,7 @@ public class UtilisateurView extends GridPane {
         Label typeLabel = new Label("Type:");
         typeLabel.setStyle("-fx-text-fill: white;");
         TextField typeField = createStyledTextField();
-
+//buttons
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
@@ -56,8 +56,9 @@ public class UtilisateurView extends GridPane {
 
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
-
+//defenir la forme du tableau les colls
         tableView = new TableView<>();
+         //definir les coll   setCellValueFactory lie la coll nom l attribut nom d objet user
         TableColumn<Utilisateur, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNom()));
 
@@ -69,12 +70,13 @@ public class UtilisateurView extends GridPane {
 
         TableColumn<Utilisateur, String> typeColumn = new TableColumn<>("Type");
         typeColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getType()));
-
+//ajouter les coll au table view ,chaque coll est associe a un attribut a Utilisateur
         tableView.getColumns().addAll(nomColumn, prenomColumn, emailColumn, typeColumn);
-
-        userList = FXCollections.observableArrayList(utilisateurDAO.afficherTous());
+// Fxcoll:Convertit la liste récupérée en une liste observable
+        userList = FXCollections.observableArrayList(utilisateurDAO.afficherTous());//recuperee les users depuis notre bd et les stocker
+        //associe les users recuperer au tableView pour les afficher
         tableView.setItems(userList);
-
+//ajouter les elems a la gridPane (position)
         this.add(titleLabel, 0, 0, 2, 1);
         this.add(nomLabel, 0, 1);
         this.add(nomField, 1, 1);
@@ -89,8 +91,8 @@ public class UtilisateurView extends GridPane {
 
         addButton.setOnAction(e -> {
             Utilisateur utilisateur = new Utilisateur(nomField.getText(), prenomField.getText(), emailField.getText(), typeField.getText());
-            utilisateurDAO.ajouter(utilisateur);
-            refreshTable();
+            utilisateurDAO.ajouter(utilisateur);//les ajouter dans la base
+            refreshTable();//rafraichit le tableau
             clearFields(nomField, prenomField, emailField, typeField);
         });
 

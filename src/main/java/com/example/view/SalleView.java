@@ -34,7 +34,7 @@ public class SalleView extends GridPane {
         nomLabel.setStyle("-fx-text-fill: white;");
         TextField nomField = createStyledTextField();
 
-        Label capaciteLabel = new Label("Capacité:");
+        Label capaciteLabel = new Label("Capacite:");
         capaciteLabel.setStyle("-fx-text-fill: white;");
         TextField capaciteField = createStyledTextField();
 
@@ -53,7 +53,7 @@ public class SalleView extends GridPane {
         TableColumn<Salle, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNomSalle()));
 
-        TableColumn<Salle, Integer> capaciteColumn = new TableColumn<>("Capacité");
+        TableColumn<Salle, Integer> capaciteColumn = new TableColumn<>("Capacite");
         capaciteColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getCapacite()));
 
         tableView.getColumns().addAll(nomColumn, capaciteColumn);
