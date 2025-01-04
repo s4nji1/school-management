@@ -58,17 +58,23 @@ public class UtilisateurView extends GridPane {
         buttonBox.setAlignment(Pos.CENTER);
 
         tableView = new TableView<>();
+        tableView.setPrefWidth(500);
+
         TableColumn<Utilisateur, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNom()));
+        nomColumn.setPrefWidth(100);
 
         TableColumn<Utilisateur, String> prenomColumn = new TableColumn<>("Prenom");
         prenomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPrenom()));
+        prenomColumn.setPrefWidth(100);
 
         TableColumn<Utilisateur, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getEmail()));
+        emailColumn.setPrefWidth(200);
 
         TableColumn<Utilisateur, String> typeColumn = new TableColumn<>("Type");
         typeColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getType()));
+        typeColumn.setPrefWidth(100);
 
         tableView.getColumns().addAll(nomColumn, prenomColumn, emailColumn, typeColumn);
 

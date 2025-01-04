@@ -61,17 +61,23 @@ public class EvenementView extends GridPane {
         buttonBox.setAlignment(Pos.CENTER);
 
         tableView = new TableView<>();
+        tableView.setPrefWidth(600);
+
         TableColumn<Evenement, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNomEvent()));
+        nomColumn.setPrefWidth(100);
 
         TableColumn<Evenement, LocalDate> dateColumn = new TableColumn<>("Date");
         dateColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getDateEvent()));
+        dateColumn.setPrefWidth(75);
 
         TableColumn<Evenement, String> descriptionColumn = new TableColumn<>("Description");
         descriptionColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDescription()));
+        descriptionColumn.setPrefWidth(325);
 
         TableColumn<Evenement, Integer> idUserColumn = new TableColumn<>("ID Utilisateur");
         idUserColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getIdUser()));
+        idUserColumn.setPrefWidth(100);
 
         tableView.getColumns().addAll(nomColumn, dateColumn, descriptionColumn, idUserColumn);
 

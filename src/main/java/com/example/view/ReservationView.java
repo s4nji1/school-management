@@ -56,21 +56,27 @@ public class ReservationView extends GridPane {
         buttonBox.setAlignment(Pos.CENTER);
 
         tableView = new TableView<>();
-        tableView.setStyle("-fx-background-color: #3a3a50; -fx-text-fill: white;");
+        tableView.setPrefWidth(390);
+
         TableColumn<Reservation, Integer> idUserColumn = new TableColumn<>("ID Utilisateur");
         idUserColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdUser()).asObject());
+        idUserColumn.setPrefWidth(75);
 
         TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID Evenement");
         idEventColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdEvent()).asObject());
+        idEventColumn.setPrefWidth(75);
 
         TableColumn<Reservation, Integer> idSalleColumn = new TableColumn<>("ID Salle");
         idSalleColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdSalle()).asObject());
+        idSalleColumn.setPrefWidth(75);
 
         TableColumn<Reservation, Integer> idTerrainColumn = new TableColumn<>("ID Terrain");
         idTerrainColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdTerrain()).asObject());
+        idTerrainColumn.setPrefWidth(75);
 
-        TableColumn<Reservation, LocalDate> dateReservationColumn = new TableColumn<>("Date Reservation");
+        TableColumn<Reservation, LocalDate> dateReservationColumn = new TableColumn<>("Date");
         dateReservationColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getDateReservation()));
+        dateReservationColumn.setPrefWidth(90);
 
         tableView.getColumns().addAll(idUserColumn, idEventColumn, idSalleColumn, idTerrainColumn, dateReservationColumn);
 

@@ -50,12 +50,16 @@ public class TerrainView extends GridPane {
         buttonBox.setAlignment(Pos.CENTER);
 
         tableView = new TableView<>();
+        tableView.setPrefWidth(300);
+
         TableColumn<Terrain, String> nomTerrainColumn = new TableColumn<>("Nom");
         nomTerrainColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNomTerrain()));
+        nomTerrainColumn.setPrefWidth(150);
 
         TableColumn<Terrain, String> typeColumn = new TableColumn<>("Type");
         typeColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getType()));
-
+        typeColumn.setPrefWidth(150);
+        
         tableView.getColumns().addAll(nomTerrainColumn, typeColumn);
 
         terrainList = FXCollections.observableArrayList(terrainDAO.afficherTous());

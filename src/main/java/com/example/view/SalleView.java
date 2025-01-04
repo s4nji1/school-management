@@ -50,11 +50,15 @@ public class SalleView extends GridPane {
         buttonBox.setAlignment(Pos.CENTER);
 
         tableView = new TableView<>();
+        tableView.setPrefWidth(300);
+
         TableColumn<Salle, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNomSalle()));
+        nomColumn.setPrefWidth(150);
 
         TableColumn<Salle, Integer> capaciteColumn = new TableColumn<>("Capacite");
         capaciteColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getCapacite()));
+        capaciteColumn.setPrefWidth(150);
 
         tableView.getColumns().addAll(nomColumn, capaciteColumn);
 
