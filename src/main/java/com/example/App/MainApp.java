@@ -2,14 +2,11 @@ package com.example.App;
 
 import com.example.view.*;
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -31,67 +28,94 @@ public class MainApp extends Application {
         terrainView = new TerrainView();
         reservationView = new ReservationView();
 
-        GridPane mainLayout = new GridPane();
-        mainLayout.setPadding(new Insets(10));
-        mainLayout.setVgap(10);
-        mainLayout.setHgap(10);
+        // Navbar
+        HBox navbar = new HBox(20);
+        navbar.setPadding(new Insets(10, 20, 10, 20));
+        navbar.setStyle(
+            "-fx-background-color: #1e1e2f;" +
+            "-fx-border-color: #F5F5F5;" +
+            "-fx-border-width: 0 0 2 0;"
+        );
 
-        Button utilisateursButton = new Button("Utilisateurs");
-        Button evenementsButton = new Button("Evenements");
-        Button sallesButton = new Button("Salles");
-        Button terrainsButton = new Button("Terrains");
-        Button reservationsButton = new Button("Reservations");
+        Label utilisateursTab = createNavbarItem("Utilisateurs");
+        Label evenementsTab = createNavbarItem("Evenements");
+        Label sallesTab = createNavbarItem("Salles");
+        Label terrainsTab = createNavbarItem("Terrains");
+        Label reservationsTab = createNavbarItem("Reservations");
 
-        GridPane navbar = new GridPane();
-        navbar.setHgap(15);
+        navbar.getChildren().addAll(utilisateursTab, evenementsTab, sallesTab, terrainsTab, reservationsTab);
         navbar.setAlignment(Pos.CENTER);
 
-        navbar.add(utilisateursButton, 9, 0);
-        navbar.add(evenementsButton, 12, 0);
-        navbar.add(sallesButton, 15, 0);
-        navbar.add(terrainsButton, 18, 0);
-        navbar.add(reservationsButton, 21, 0);
-
-        mainLayout.add(navbar, 0, 0);
-        GridPane.setHalignment(navbar, HPos.CENTER);
-
+        // Content Area
         contentArea = new StackPane();
-        contentArea.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: #f9f9f9; -fx-padding: 10;");
+        contentArea.setStyle(
+            "-fx-background-color: #2e2e40;" +
+            "-fx-border-color: #F5F5F5;" +
+            "-fx-border-width: 2;" +
+            "-fx-border-radius: 10px;" +
+            "-fx-padding: 15;" +
+            "-fx-effect: dropshadow(gaussian, rgba(245, 245, 245, 0.93), 0, 0.5, 96, 2);"
+        );
 
-        GridPane.setHgrow(contentArea, Priority.ALWAYS);
-        GridPane.setVgrow(contentArea, Priority.ALWAYS);
+        // Main Layout
+        VBox mainLayout = new VBox(navbar, contentArea);
+        VBox.setVgrow(contentArea, Priority.ALWAYS);
 
-        mainLayout.add(contentArea, 0, 1, 1, 1);
+        // Tab Actions
+        utilisateursTab.setOnMouseClicked(e -> switchContent(utilisateurView));
+        evenementsTab.setOnMouseClicked(e -> switchContent(evenementView));
+        sallesTab.setOnMouseClicked(e -> switchContent(salleView));
+        terrainsTab.setOnMouseClicked(e -> switchContent(terrainView));
+        reservationsTab.setOnMouseClicked(e -> switchContent(reservationView));
 
-        utilisateursButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(utilisateurView.createScene().getRoot());
-        });
-
-        evenementsButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(evenementView.createScene().getRoot());
-        });
-
-        sallesButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(salleView.createScene().getRoot());
-        });
-
-        terrainsButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(terrainView.createScene().getRoot());
-        });
-
-        reservationsButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(reservationView.createScene().getRoot());
-        });
-
+        // Scene and Stage
         Scene scene = new Scene(mainLayout, 800, 600);
-        primaryStage.setTitle("Dashboard");
+        primaryStage.setTitle("Modern Dashboard");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Label createNavbarItem(String text) {
+        Label label = new Label(text);
+        label.setStyle(
+            "-fx-font-size: 16px;" +
+            "-fx-text-fill: #ffffff;" +
+            "-fx-padding: 10;" +
+            "-fx-cursor: hand;"
+        );
+
+        label.setOnMouseEntered(e -> label.setStyle(
+            "-fx-font-size: 16px;" +
+            "-fx-text-fill: #F5F5F5;" +
+            "-fx-padding: 10;" +
+            "-fx-cursor: hand;" +
+            "-fx-border-color: #F5F5F5;" +
+            "-fx-border-width: 0 0 2 0;"
+        ));
+
+        label.setOnMouseExited(e -> label.setStyle(
+            "-fx-font-size: 16px;" +
+            "-fx-text-fill: #ffffff;" +
+            "-fx-padding: 10;" +
+            "-fx-cursor: hand;"
+        ));
+
+        return label;
+    }
+
+    private void switchContent(Object view) {
+        contentArea.getChildren().clear();
+        if (view instanceof UtilisateurView) {
+            contentArea.getChildren().add(((UtilisateurView) view).createScene().getRoot());
+        } else if (view instanceof EvenementView) {
+            contentArea.getChildren().add(((EvenementView) view).createScene().getRoot());
+        } else if (view instanceof SalleView) {
+            contentArea.getChildren().add(((SalleView) view).createScene().getRoot());
+        } else if (view instanceof TerrainView) {
+            contentArea.getChildren().add(((TerrainView) view).createScene().getRoot());
+        } else if (view instanceof ReservationView) {
+            contentArea.getChildren().add(((ReservationView) view).createScene().getRoot());
+        }
     }
 
     public static void main(String[] args) {
