@@ -20,7 +20,7 @@ public class EvenementDAOImpl implements GenericDAO<Evenement> {
             statement.setString(3, evenement.getDescription());
             statement.setInt(4, evenement.getIdUser());
             statement.executeUpdate();
-            System.out.println("Événement inséré avec succès!");
+            System.out.println("Evenement insere avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class EvenementDAOImpl implements GenericDAO<Evenement> {
             statement.setInt(4, evenement.getIdUser());
             statement.setInt(5, evenement.getIdEvent());
             statement.executeUpdate();
-            System.out.println("Événement modifié avec succès!");
+            System.out.println("Evenement modifie avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class EvenementDAOImpl implements GenericDAO<Evenement> {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-            System.out.println("Événement supprimé avec succès!");
+            System.out.println("Evenement supprime avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -17,7 +17,7 @@ public class UtilisateurDAOImpl {
             statement.setString(3, utilisateur.getEmail());
             statement.setString(4, utilisateur.getType());
             statement.executeUpdate();
-            System.out.println("Utilisateur inséré avec succès!");
+            System.out.println("Utilisateur insere avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,7 +75,7 @@ public class UtilisateurDAOImpl {
             statement.setString(4, utilisateur.getType());
             statement.setInt(5, utilisateur.getIdUser());
             statement.executeUpdate();
-            System.out.println("Utilisateur modifié avec succès!");
+            System.out.println("Utilisateur modifie avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,7 +87,7 @@ public class UtilisateurDAOImpl {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-            System.out.println("Utilisateur supprimé avec succès!");
+            System.out.println("Utilisateur supprime avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -23,22 +23,19 @@ public class ReservationView extends GridPane {
     public ReservationView() {
         reservationDAO = new ReservationDAOImpl();
 
-        // Styling the grid pane
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
         this.setStyle("-fx-background-color: #2e2e40;");
 
-        // Title label
         Label titleLabel = new Label("Gestion des Reservations");
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-        // Form labels and fields
         Label idUserLabel = createStyledLabel("ID Utilisateur:");
         TextField idUserField = createStyledTextField();
 
-        Label idEventLabel = createStyledLabel("ID Événement:");
+        Label idEventLabel = createStyledLabel("ID Evenement:");
         TextField idEventField = createStyledTextField();
 
         Label idSalleLabel = createStyledLabel("ID Salle:");
@@ -51,7 +48,6 @@ public class ReservationView extends GridPane {
         DatePicker dateReservationPicker = new DatePicker();
         dateReservationPicker.setStyle("-fx-control-inner-background: #3a3a50; -fx-text-fill: white;");
 
-        // Buttons
         Button addButton = createStyledButton("Ajouter");
         Button updateButton = createStyledButton("Modifier");
         Button deleteButton = createStyledButton("Supprimer");
@@ -59,13 +55,12 @@ public class ReservationView extends GridPane {
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // TableView
         tableView = new TableView<>();
         tableView.setStyle("-fx-background-color: #3a3a50; -fx-text-fill: white;");
         TableColumn<Reservation, Integer> idUserColumn = new TableColumn<>("ID Utilisateur");
         idUserColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdUser()).asObject());
 
-        TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID Événement");
+        TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID Evenement");
         idEventColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdEvent()).asObject());
 
         TableColumn<Reservation, Integer> idSalleColumn = new TableColumn<>("ID Salle");
@@ -74,16 +69,14 @@ public class ReservationView extends GridPane {
         TableColumn<Reservation, Integer> idTerrainColumn = new TableColumn<>("ID Terrain");
         idTerrainColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdTerrain()).asObject());
 
-        TableColumn<Reservation, LocalDate> dateReservationColumn = new TableColumn<>("Date Réservation");
+        TableColumn<Reservation, LocalDate> dateReservationColumn = new TableColumn<>("Date Reservation");
         dateReservationColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getDateReservation()));
 
         tableView.getColumns().addAll(idUserColumn, idEventColumn, idSalleColumn, idTerrainColumn, dateReservationColumn);
 
-        // Populate table data
         reservationList = FXCollections.observableArrayList(reservationDAO.afficherTous());
         tableView.setItems(reservationList);
 
-        // Adding elements to the grid
         this.add(titleLabel, 0, 0, 2, 1);
         this.add(idUserLabel, 0, 1);
         this.add(idUserField, 1, 1);
@@ -98,7 +91,6 @@ public class ReservationView extends GridPane {
         this.add(buttonBox, 0, 6, 2, 1);
         this.add(tableView, 0, 7, 2, 1);
 
-        // Button actions
         addButton.setOnAction(e -> {
             Reservation reservation = new Reservation(0,
                     Integer.parseInt(idUserField.getText()),

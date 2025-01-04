@@ -28,7 +28,6 @@ public class MainApp extends Application {
         terrainView = new TerrainView();
         reservationView = new ReservationView();
 
-        // Navbar
         HBox navbar = new HBox(20);
         navbar.setPadding(new Insets(10, 20, 10, 20));
         navbar.setStyle(
@@ -46,7 +45,6 @@ public class MainApp extends Application {
         navbar.getChildren().addAll(utilisateursTab, evenementsTab, sallesTab, terrainsTab, reservationsTab);
         navbar.setAlignment(Pos.CENTER);
 
-        // Content Area
         contentArea = new StackPane();
         contentArea.setStyle(
             "-fx-background-color: #2e2e40;" +
@@ -57,18 +55,15 @@ public class MainApp extends Application {
             "-fx-effect: dropshadow(gaussian, rgba(245, 245, 245, 0.93), 0, 0.5, 96, 2);"
         );
 
-        // Main Layout
         VBox mainLayout = new VBox(navbar, contentArea);
         VBox.setVgrow(contentArea, Priority.ALWAYS);
 
-        // Tab Actions
         utilisateursTab.setOnMouseClicked(e -> switchContent(utilisateurView));
         evenementsTab.setOnMouseClicked(e -> switchContent(evenementView));
         sallesTab.setOnMouseClicked(e -> switchContent(salleView));
         terrainsTab.setOnMouseClicked(e -> switchContent(terrainView));
         reservationsTab.setOnMouseClicked(e -> switchContent(reservationView));
 
-        // Scene and Stage
         Scene scene = new Scene(mainLayout, 800, 600);
         primaryStage.setTitle("Gestion des reservations des evenements de l'universite");
         primaryStage.setScene(scene);

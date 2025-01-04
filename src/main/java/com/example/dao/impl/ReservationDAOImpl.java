@@ -21,7 +21,7 @@ public class ReservationDAOImpl implements GenericDAO<Reservation> {
             statement.setInt(4, reservation.getIdTerrain());
             statement.setDate(5, Date.valueOf(reservation.getDateReservation()));
             statement.executeUpdate();
-            System.out.println("Réservation ajoutée avec succès!");
+            System.out.println("Reservation ajoutee avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class ReservationDAOImpl implements GenericDAO<Reservation> {
             statement.setDate(5, Date.valueOf(reservation.getDateReservation()));
             statement.setInt(6, reservation.getIdReservation());
             statement.executeUpdate();
-            System.out.println("Réservation modifiée avec succès!");
+            System.out.println("Reservation modifiee avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,7 +98,7 @@ public class ReservationDAOImpl implements GenericDAO<Reservation> {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-            System.out.println("Réservation supprimée avec succès!");
+            System.out.println("Reservation supprimee avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

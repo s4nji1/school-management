@@ -18,7 +18,7 @@ public class TerrainDAOImpl implements GenericDAO<Terrain> {
             statement.setString(1, terrain.getNomTerrain());
             statement.setString(2, terrain.getType());
             statement.executeUpdate();
-            System.out.println("Terrain inséré avec succès!");
+            System.out.println("Terrain insere avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class TerrainDAOImpl implements GenericDAO<Terrain> {
             statement.setString(2, terrain.getType());
             statement.setInt(3, terrain.getIdTerrain());
             statement.executeUpdate();
-            System.out.println("Terrain modifié avec succès!");
+            System.out.println("Terrain modifie avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,7 +86,7 @@ public class TerrainDAOImpl implements GenericDAO<Terrain> {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-            System.out.println("Terrain supprimé avec succès!");
+            System.out.println("Terrain supprime avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -18,7 +18,7 @@ public class SalleDAOImpl implements GenericDAO<Salle> {
             statement.setString(1, salle.getNomSalle());
             statement.setInt(2, salle.getCapacite());
             statement.executeUpdate();
-            System.out.println("Salle insérée avec succès!");
+            System.out.println("Salle inseree avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class SalleDAOImpl implements GenericDAO<Salle> {
             statement.setInt(2, salle.getCapacite());
             statement.setInt(3, salle.getIdSalle());
             statement.executeUpdate();
-            System.out.println("Salle modifiée avec succès!");
+            System.out.println("Salle modifiee avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,7 +86,7 @@ public class SalleDAOImpl implements GenericDAO<Salle> {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-            System.out.println("Salle supprimée avec succès!");
+            System.out.println("Salle supprimee avec succes!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
