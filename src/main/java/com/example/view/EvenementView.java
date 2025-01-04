@@ -27,22 +27,35 @@ public class EvenementView extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
+        this.setStyle("-fx-background-color: #2e2e40;");
 
         Label titleLabel = new Label("Gestion des Evenements");
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
 
         Label nomLabel = new Label("Nom:");
-        TextField nomField = new TextField();
+        nomLabel.setStyle("-fx-text-fill: white;");
+        TextField nomField = createStyledTextField();
+
         Label dateLabel = new Label("Date:");
+        dateLabel.setStyle("-fx-text-fill: white;");
         DatePicker datePicker = new DatePicker();
+        datePicker.setStyle("-fx-control-inner-background: #3a3a50; -fx-text-fill: white;");
+
         Label descriptionLabel = new Label("Description:");
-        TextField descriptionField = new TextField();
+        descriptionLabel.setStyle("-fx-text-fill: white;");
+        TextField descriptionField = createStyledTextField();
+
         Label idUserLabel = new Label("ID Utilisateur:");
-        TextField idUserField = new TextField();
+        idUserLabel.setStyle("-fx-text-fill: white;");
+        TextField idUserField = createStyledTextField();
 
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
+
+        addButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
+        updateButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
+        deleteButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
 
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
@@ -121,6 +134,12 @@ public class EvenementView extends GridPane {
                 idUserField.setText(String.valueOf(newSelection.getIdUser()));
             }
         });
+    }
+
+    private TextField createStyledTextField() {
+        TextField textField = new TextField();
+        textField.setStyle("-fx-control-inner-background: #3a3a50; -fx-text-fill: white; -fx-border-color: #5a5a75; -fx-border-radius: 3; -fx-background-radius: 3;");
+        return textField;
     }
 
     private void refreshTable() {

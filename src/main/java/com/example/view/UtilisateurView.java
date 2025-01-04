@@ -25,22 +25,34 @@ public class UtilisateurView extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
+        this.setStyle("-fx-background-color: #2e2e40; -fx-text-fill: white;");
 
         Label titleLabel = new Label("Gestion des Utilisateurs");
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
 
         Label nomLabel = new Label("Nom:");
-        TextField nomField = new TextField();
+        nomLabel.setStyle("-fx-text-fill: white;");
+        TextField nomField = createStyledTextField();
+
         Label prenomLabel = new Label("Prenom:");
-        TextField prenomField = new TextField();
+        prenomLabel.setStyle("-fx-text-fill: white;");
+        TextField prenomField = createStyledTextField();
+
         Label emailLabel = new Label("Email:");
-        TextField emailField = new TextField();
+        emailLabel.setStyle("-fx-text-fill: white;");
+        TextField emailField = createStyledTextField();
+
         Label typeLabel = new Label("Type:");
-        TextField typeField = new TextField();
+        typeLabel.setStyle("-fx-text-fill: white;");
+        TextField typeField = createStyledTextField();
 
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
+
+        addButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
+        updateButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
+        deleteButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
 
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
@@ -111,6 +123,12 @@ public class UtilisateurView extends GridPane {
                 typeField.setText(newSelection.getType());
             }
         });
+    }
+
+    private TextField createStyledTextField() {
+        TextField textField = new TextField();
+        textField.setStyle("-fx-control-inner-background: #3a3a50; -fx-text-fill: white; -fx-border-color: #5a5a75; -fx-border-radius: 3; -fx-background-radius: 3;");
+        return textField;
     }
 
     private void refreshTable() {

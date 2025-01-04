@@ -23,37 +23,49 @@ public class ReservationView extends GridPane {
     public ReservationView() {
         reservationDAO = new ReservationDAOImpl();
 
+        // Styling the grid pane
         this.setPadding(new Insets(20));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
+        this.setStyle("-fx-background-color: #2e2e40;");
 
+        // Title label
         Label titleLabel = new Label("Gestion des Reservations");
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
 
-        Label idUserLabel = new Label("ID Utilisateur:");
-        TextField idUserField = new TextField();
-        Label idEventLabel = new Label("ID Événement:");
-        TextField idEventField = new TextField();
-        Label idSalleLabel = new Label("ID Salle:");
-        TextField idSalleField = new TextField();
-        Label idTerrainLabel = new Label("ID Terrain:");
-        TextField idTerrainField = new TextField();
-        Label dateReservationLabel = new Label("Date Reservation:");
+        // Form labels and fields
+        Label idUserLabel = createStyledLabel("ID Utilisateur:");
+        TextField idUserField = createStyledTextField();
+
+        Label idEventLabel = createStyledLabel("ID Événement:");
+        TextField idEventField = createStyledTextField();
+
+        Label idSalleLabel = createStyledLabel("ID Salle:");
+        TextField idSalleField = createStyledTextField();
+
+        Label idTerrainLabel = createStyledLabel("ID Terrain:");
+        TextField idTerrainField = createStyledTextField();
+
+        Label dateReservationLabel = createStyledLabel("Date Reservation:");
         DatePicker dateReservationPicker = new DatePicker();
+        dateReservationPicker.setStyle("-fx-control-inner-background: #3a3a50; -fx-text-fill: white;");
 
-        Button addButton = new Button("Ajouter");
-        Button updateButton = new Button("Modifier");
-        Button deleteButton = new Button("Supprimer");
+        // Buttons
+        Button addButton = createStyledButton("Ajouter");
+        Button updateButton = createStyledButton("Modifier");
+        Button deleteButton = createStyledButton("Supprimer");
 
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
+        // TableView
         tableView = new TableView<>();
+        tableView.setStyle("-fx-background-color: #3a3a50; -fx-text-fill: white;");
         TableColumn<Reservation, Integer> idUserColumn = new TableColumn<>("ID Utilisateur");
         idUserColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdUser()).asObject());
 
-        TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID Evenement");
+        TableColumn<Reservation, Integer> idEventColumn = new TableColumn<>("ID Événement");
         idEventColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIdEvent()).asObject());
 
         TableColumn<Reservation, Integer> idSalleColumn = new TableColumn<>("ID Salle");
@@ -67,9 +79,11 @@ public class ReservationView extends GridPane {
 
         tableView.getColumns().addAll(idUserColumn, idEventColumn, idSalleColumn, idTerrainColumn, dateReservationColumn);
 
+        // Populate table data
         reservationList = FXCollections.observableArrayList(reservationDAO.afficherTous());
         tableView.setItems(reservationList);
 
+        // Adding elements to the grid
         this.add(titleLabel, 0, 0, 2, 1);
         this.add(idUserLabel, 0, 1);
         this.add(idUserField, 1, 1);
@@ -84,6 +98,7 @@ public class ReservationView extends GridPane {
         this.add(buttonBox, 0, 6, 2, 1);
         this.add(tableView, 0, 7, 2, 1);
 
+        // Button actions
         addButton.setOnAction(e -> {
             Reservation reservation = new Reservation(0,
                     Integer.parseInt(idUserField.getText()),
@@ -129,6 +144,24 @@ public class ReservationView extends GridPane {
                 dateReservationPicker.setValue(newSelection.getDateReservation());
             }
         });
+    }
+
+    private Label createStyledLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-text-fill: white;");
+        return label;
+    }
+
+    private TextField createStyledTextField() {
+        TextField textField = new TextField();
+        textField.setStyle("-fx-control-inner-background: #3a3a50; -fx-text-fill: white;");
+        return textField;
+    }
+
+    private Button createStyledButton(String text) {
+        Button button = new Button(text);
+        button.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
+        return button;
     }
 
     private void refreshTable() {

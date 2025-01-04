@@ -70,7 +70,7 @@ public class MainApp extends Application {
 
         // Scene and Stage
         Scene scene = new Scene(mainLayout, 800, 600);
-        primaryStage.setTitle("Modern Dashboard");
+        primaryStage.setTitle("Gestion des reservations des evenements de l'universite");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

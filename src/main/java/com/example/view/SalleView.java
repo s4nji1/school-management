@@ -25,18 +25,26 @@ public class SalleView extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
+        this.setStyle("-fx-background-color: #2e2e40;");
 
         Label titleLabel = new Label("Gestion des Salles");
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
 
         Label nomLabel = new Label("Nom de la Salle:");
-        TextField nomField = new TextField();
-        Label capaciteLabel = new Label("Capacite:");
-        TextField capaciteField = new TextField();
+        nomLabel.setStyle("-fx-text-fill: white;");
+        TextField nomField = createStyledTextField();
+
+        Label capaciteLabel = new Label("Capacité:");
+        capaciteLabel.setStyle("-fx-text-fill: white;");
+        TextField capaciteField = createStyledTextField();
 
         Button addButton = new Button("Ajouter");
         Button updateButton = new Button("Modifier");
         Button deleteButton = new Button("Supprimer");
+
+        addButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
+        updateButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
+        deleteButton.setStyle("-fx-background-color: #5a5a72; -fx-text-fill: white;");
 
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
@@ -45,7 +53,7 @@ public class SalleView extends GridPane {
         TableColumn<Salle, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNomSalle()));
 
-        TableColumn<Salle, Integer> capaciteColumn = new TableColumn<>("Capacite");
+        TableColumn<Salle, Integer> capaciteColumn = new TableColumn<>("Capacité");
         capaciteColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getCapacite()));
 
         tableView.getColumns().addAll(nomColumn, capaciteColumn);
@@ -93,6 +101,12 @@ public class SalleView extends GridPane {
                 capaciteField.setText(String.valueOf(newSelection.getCapacite()));
             }
         });
+    }
+
+    private TextField createStyledTextField() {
+        TextField textField = new TextField();
+        textField.setStyle("-fx-control-inner-background: #3a3a50; -fx-text-fill: white; -fx-border-color: #5a5a75; -fx-border-radius: 3; -fx-background-radius: 3;");
+        return textField;
     }
 
     private void refreshTable() {
