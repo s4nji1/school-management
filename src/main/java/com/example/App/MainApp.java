@@ -1,97 +1,94 @@
 package com.example.App;
 
-import com.example.view.*;
+import com.example.view.DashboardView;
+import com.example.view.LoginView;
 import javafx.application.Application;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-
-    private StackPane contentArea;
-
-    private UtilisateurView utilisateurView;
-    private EvenementView evenementView;
-    private SalleView salleView;
-    private TerrainView terrainView;
-    private ReservationView reservationView;
+    private static Stage primaryStage;
+    private static MainApp instance;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
+        primaryStage = stage;
+        instance = this;
+        showLogin();
+    }
 
-        utilisateurView = new UtilisateurView();
-        evenementView = new EvenementView();
-        salleView = new SalleView();
-        terrainView = new TerrainView();
-        reservationView = new ReservationView();
+    // Methode pour afficher la fenêtre de connexion
+    public void showLogin() {
+        try {
+            LoginView loginView = new LoginView();
+            Scene loginScene = loginView.createScene();
 
-        GridPane mainLayout = new GridPane();
-        mainLayout.setPadding(new Insets(10));
-        mainLayout.setVgap(10);
-        mainLayout.setHgap(10);
+            primaryStage.setScene(loginScene);
+            primaryStage.setTitle("Connexion");
+            primaryStage.setResizable(false);
+            primaryStage.show();
+            
+            // Centrer la fenêtre sur l'ecran
+            primaryStage.centerOnScreen();
+        } catch (Exception e) {
+            // showError("Erreur lors du chargement de la page de connexion", e.getMessage());
+        }
+    }
 
-        Button utilisateursButton = new Button("Utilisateurs");
-        Button evenementsButton = new Button("Evenements");
-        Button sallesButton = new Button("Salles");
-        Button terrainsButton = new Button("Terrains");
-        Button reservationsButton = new Button("Reservations");
+    // Methode pour afficher le tableau de bord
+    public void showDashboard() {
+        try {
+            // Creer une nouvelle fenêtre pour le dashboard
+            Stage dashboardStage = new Stage();
+            DashboardView dashboardView = new DashboardView();
+            Scene dashboardScene = dashboardView.createScene();
 
-        GridPane navbar = new GridPane();
-        navbar.setHgap(15);
-        navbar.setAlignment(Pos.CENTER);
+            dashboardStage.setScene(dashboardScene);
+            dashboardStage.setTitle("Tableau de Bord");
+            dashboardStage.setMaximized(true); // Ouvrir en plein ecran
+            
+            // Fermer la fenêtre de connexion
+            primaryStage.close();
+            
+            // Afficher le dashboard
+            dashboardStage.show();
+        } catch (Exception e) {
+            showError("Erreur lors du chargement du tableau de bord", e.getMessage());
+        }
+    }
 
-        navbar.add(utilisateursButton, 9, 0);
-        navbar.add(evenementsButton, 12, 0);
-        navbar.add(sallesButton, 15, 0);
-        navbar.add(terrainsButton, 18, 0);
-        navbar.add(reservationsButton, 21, 0);
+    // Methode pour la deconnexion
+    public void logout() {
+        try {
+            // Fermer toutes les fenêtres existantes
+            Stage currentStage = (Stage) primaryStage.getScene().getWindow();
+            currentStage.close();
+            
+            // Reafficher la fenêtre de connexion
+            showLogin();
+        } catch (Exception e) {
+            showError("Erreur lors de la deconnexion", e.getMessage());
+        }
+    }
 
-        mainLayout.add(navbar, 0, 0);
-        GridPane.setHalignment(navbar, HPos.CENTER);
+    // Methode utilitaire pour afficher les erreurs
+    private void showError(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
-        contentArea = new StackPane();
-        contentArea.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: #f9f9f9; -fx-padding: 10;");
+    // Methode pour acceder à l'instance de MainApp depuis n'importe où
+    public static MainApp getInstance() {
+        return instance;
+    }
 
-        GridPane.setHgrow(contentArea, Priority.ALWAYS);
-        GridPane.setVgrow(contentArea, Priority.ALWAYS);
-
-        mainLayout.add(contentArea, 0, 1, 1, 1);
-
-        utilisateursButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(utilisateurView.createScene().getRoot());
-        });
-
-        evenementsButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(evenementView.createScene().getRoot());
-        });
-
-        sallesButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(salleView.createScene().getRoot());
-        });
-
-        terrainsButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(terrainView.createScene().getRoot());
-        });
-
-        reservationsButton.setOnAction(e -> {
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(reservationView.createScene().getRoot());
-        });
-
-        Scene scene = new Scene(mainLayout, 800, 600);
-        primaryStage.setTitle("Dashboard");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    // Methode pour acceder au stage principal
+    public static Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     public static void main(String[] args) {

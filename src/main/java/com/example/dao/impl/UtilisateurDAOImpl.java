@@ -8,20 +8,24 @@ import java.util.List;
 
 public class UtilisateurDAOImpl {
 
-    public void ajouter(Utilisateur utilisateur) {
-        String sql = "INSERT INTO utilisateurs (nom ,prenom ,email ,type) VALUES (?, ?, ?, ?)";
+    public boolean ajouter(Utilisateur utilisateur) {
+        String sql = "INSERT INTO utilisateurs (nom, prenom, email, type,password) VALUES (?, ?, ?, ?,?)";
         try (Connection connection = PostgreSQLConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, utilisateur.getNom());
             statement.setString(2, utilisateur.getPrenom());
             statement.setString(3, utilisateur.getEmail());
             statement.setString(4, utilisateur.getType());
-            statement.executeUpdate();
-            System.out.println("Utilisateur inséré avec succès!");
+            statement.setString(5, utilisateur.getPassword());
+
+            int rowsInserted = statement.executeUpdate(); // Nombre de lignes insérées
+            return rowsInserted > 0; // Retourne true si au moins une ligne a été insérée
         } catch (SQLException e) {
             e.printStackTrace();
+            return false; // Retourne false en cas d'échec
         }
     }
+    
 
     public Utilisateur afficher(int id) {
         String sql = "SELECT * FROM utilisateurs WHERE id_user = ?";
@@ -35,7 +39,8 @@ public class UtilisateurDAOImpl {
                     resultSet.getString("nom"),
                     resultSet.getString("prenom"),
                     resultSet.getString("email"),
-                    resultSet.getString("type")
+                    resultSet.getString("type"),
+                    resultSet.getString("password")
                 );
             }
         } catch (SQLException e) {
@@ -56,7 +61,9 @@ public class UtilisateurDAOImpl {
                     resultSet.getString("nom"),
                     resultSet.getString("prenom"),
                     resultSet.getString("email"),
-                    resultSet.getString("type")
+                    resultSet.getString("type"),
+                    resultSet.getString("password")
+
                 ));
             }
         } catch (SQLException e) {
@@ -92,4 +99,27 @@ public class UtilisateurDAOImpl {
             e.printStackTrace();
         }
     }
+    public Utilisateur connecter(String email, String password) {
+        String sql = "SELECT * FROM utilisateurs WHERE email = ? AND password = ?";
+        try (Connection connection = PostgreSQLConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Utilisateur(
+                    resultSet.getInt("id_user"),
+                    resultSet.getString("nom"),
+                    resultSet.getString("prenom"),
+                    resultSet.getString("email"),
+                    resultSet.getString("type"),
+                    resultSet.getString("password")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Retourne null si la connexion échoue
+    }
+    
 }
