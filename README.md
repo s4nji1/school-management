@@ -31,10 +31,10 @@ The project follows the Model-View-Controller (MVC) architecture, ensuring separ
 - Contains utility classes for shared functionality such as input validation, date formatting, and database connection management.
 
 ### 6. `resource`
-- Holds external resources like FXML files, stylesheets, and images used by the application.
+- Holds external resources like the database file.
 
 ### 7. `test`
-- Includes unit tests to verify the application's functionality.
+- Includes Junit tests to verify the application's functionality.
 
 ## Features
 1. **Login and Registration**:
