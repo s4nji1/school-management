@@ -2,10 +2,12 @@ package com.example.dao;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 import com.example.dao.impl.UtilisateurDAOImpl;
 import com.example.model.Utilisateur;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.sql.SQLException;
 
 public class UtilisateurTests {
 
@@ -17,58 +19,63 @@ public class UtilisateurTests {
     }
 
     @Test
-    public void testAjouterUtilisateur() {
+    public void testAjouterUtilisateur() throws SQLException {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom("Dupont");
         utilisateur.setPrenom("Jean");
         utilisateur.setEmail("jean.dupont@example.com");
         utilisateur.setType("Admin");
+        utilisateur.setPassword("password123");
 
-        doNothing().when(utilisateurDAO).ajouter(utilisateur);
+        when(utilisateurDAO.ajouter(utilisateur)).thenReturn(true);
 
-        utilisateurDAO.ajouter(utilisateur);
+        boolean result = utilisateurDAO.ajouter(utilisateur);
 
         verify(utilisateurDAO, times(1)).ajouter(utilisateur);
+        assertTrue(result);
     }
 
     @Test
-    public void testAfficherUtilisateur() {
+    public void testAfficherUtilisateur() throws SQLException {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setIdUser(1);
         utilisateur.setNom("Dupont");
         utilisateur.setPrenom("Jean");
         utilisateur.setEmail("jean.dupont@example.com");
         utilisateur.setType("Admin");
+        utilisateur.setPassword("password123");
 
         when(utilisateurDAO.afficher(1)).thenReturn(utilisateur);
 
-        Utilisateur resultat = utilisateurDAO.afficher(1);
+        Utilisateur result = utilisateurDAO.afficher(1);
 
-        assertNotNull(resultat);
-        assertEquals(1, resultat.getIdUser());
-        assertEquals("Dupont", resultat.getNom());
-        assertEquals("Jean", resultat.getPrenom());
-        assertEquals("jean.dupont@example.com", resultat.getEmail());
-        assertEquals("Admin", resultat.getType());
+        assertNotNull(result);
+        assertEquals(1, result.getIdUser());
+        assertEquals("Dupont", result.getNom());
+        assertEquals("Jean", result.getPrenom());
+        assertEquals("jean.dupont@example.com", result.getEmail());
+        assertEquals("Admin", result.getType());
     }
 
     @Test
-    public void testAfficherUtilisateurNonTrouve() {
+    public void testAfficherUtilisateurNonTrouve() throws SQLException {
+
         when(utilisateurDAO.afficher(999)).thenReturn(null);
 
-        Utilisateur resultat = utilisateurDAO.afficher(999);
+        Utilisateur result = utilisateurDAO.afficher(999);
 
-        assertNull(resultat);
+        assertNull(result);
     }
 
     @Test
-    public void testModifierUtilisateur() {
+    public void testModifierUtilisateur() throws SQLException {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setIdUser(1);
         utilisateur.setNom("Dupont");
         utilisateur.setPrenom("Jean");
         utilisateur.setEmail("jean.dupont@example.com");
         utilisateur.setType("Admin");
+        utilisateur.setPassword("password123");
 
         doNothing().when(utilisateurDAO).modifier(utilisateur);
 
@@ -78,7 +85,7 @@ public class UtilisateurTests {
     }
 
     @Test
-    public void testSupprimerUtilisateur() {
+    public void testSupprimerUtilisateur() throws SQLException {
         doNothing().when(utilisateurDAO).supprimer(1);
 
         utilisateurDAO.supprimer(1);

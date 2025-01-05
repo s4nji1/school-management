@@ -21,55 +21,48 @@ public class LoginView extends GridPane {
     public LoginView() {
         utilisateurDAO = new UtilisateurDAOImpl();
         
-        // Configuration du GridPane
         this.setPadding(new Insets(40));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
-        this.setStyle("-fx-background-color: white;");
+        this.setStyle("-fx-background-color: #2E2E2E;");
 
-        // Titre de l'application
         Text titleText = new Text("SE Connecter");
-        titleText.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2196F3;");
-        
-        // Champs de saisie
+        titleText.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #FFEB3B;");
+
         Label emailLabel = new Label("Email:");
-        emailLabel.setStyle("-fx-font-size: 14px;");
+        emailLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #E0E0E0;");
         emailField = new TextField();
-        emailField.setPromptText("Entrez votre email");//placeHolder
+        emailField.setPromptText("Entrez votre email");
         emailField.setPrefWidth(250);
         
         Label passwordLabel = new Label("Mot de passe:");
-        passwordLabel.setStyle("-fx-font-size: 14px;");
+        passwordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #E0E0E0;");
         passwordField = new PasswordField();
         passwordField.setPromptText("Entrez votre mot de passe");
         passwordField.setPrefWidth(250);
 
-        // Style des champs
         String fieldStyle = "-fx-background-radius: 5px; -fx-border-radius: 5px; " +
-                          "-fx-border-color: #cccccc; -fx-border-width: 1px; " +
-                          "-fx-padding: 8px; -fx-font-size: 13px;";
+                          "-fx-border-color: #444444; -fx-border-width: 1px; " +
+                          "-fx-padding: 8px; -fx-font-size: 13px; -fx-background-color: #333333; " +
+                          "-fx-text-fill: #E0E0E0;";
         emailField.setStyle(fieldStyle);
         passwordField.setStyle(fieldStyle);
 
-        // Boutons
         loginButton = new Button("Connexion");
         registerButton = new Button("Nouveau compte");
-        
-        // Style des boutons
+
         loginButton.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; " +
                            "-fx-font-size: 14px; -fx-padding: 10px 20px; " +
-                           "-fx-background-radius: 5px; -fx-cursor: hand;");
-        registerButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; " +
+                           "-fx-background-radius: 5px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, #2196F3, 10, 0.5, 0, 2);");
+        registerButton.setStyle("-fx-background-color: #FFEB3B; -fx-text-fill: black; " +
                               "-fx-font-size: 14px; -fx-padding: 10px 20px; " +
-                              "-fx-background-radius: 5px; -fx-cursor: hand;");
+                              "-fx-background-radius: 5px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, #FFEB3B, 10, 0.5, 0, 2);");
 
-        // Conteneur pour les boutons
         HBox buttonBox = new HBox(10);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.getChildren().addAll(loginButton, registerButton);
 
-        // Ajout des éléments au GridPane
         this.add(titleText, 0, 0, 2, 1);
         this.add(emailLabel, 0, 2);
         this.add(emailField, 0, 3, 2, 1);
@@ -77,11 +70,9 @@ public class LoginView extends GridPane {
         this.add(passwordField, 0, 5, 2, 1);
         this.add(buttonBox, 0, 6, 2, 1);
 
-        // Gestionnaires d'événements
         loginButton.setOnAction(e -> handleLogin());
         registerButton.setOnAction(e -> handleRegister());
-        
-        // Permettre la connexion en appuyant sur Entrée
+ 
         passwordField.setOnKeyPressed(e -> {
             if (e.getCode().toString().equals("ENTER")) {
                 handleLogin();
@@ -93,7 +84,6 @@ public class LoginView extends GridPane {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        // Validation des champs
         if (email.isEmpty() || password.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Champs requis", "Veuillez remplir tous les champs.");
             return;

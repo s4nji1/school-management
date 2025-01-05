@@ -18,11 +18,11 @@ public class UtilisateurDAOImpl {
             statement.setString(4, utilisateur.getType());
             statement.setString(5, utilisateur.getPassword());
 
-            int rowsInserted = statement.executeUpdate(); // Nombre de lignes insérées
-            return rowsInserted > 0; // Retourne true si au moins une ligne a été insérée
+            int rowsInserted = statement.executeUpdate();
+            return rowsInserted > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // Retourne false en cas d'échec
+            return false;
         }
     }
     
@@ -119,7 +119,7 @@ public class UtilisateurDAOImpl {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Retourne null si la connexion échoue
+        return null;
     }
     
 }

@@ -24,67 +24,60 @@ public class RegisterView extends GridPane {
     public RegisterView() {
         utilisateurDAO = new UtilisateurDAOImpl();
 
-        // Configuration du GridPane
         this.setPadding(new Insets(40));
         this.setHgap(10);
         this.setVgap(10);
         this.setAlignment(Pos.CENTER);
-        this.setStyle("-fx-background-color: white;");
+        this.setStyle("-fx-background-color: #2E2E2E;");
 
-        // Titre
         Text titleText = new Text("Inscription");
-        titleText.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2196F3;");
+        titleText.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #FFEB3B;");
 
-        // Champs du formulaire
         Label nameLabel = new Label("Nom:");
+        nameLabel.setStyle("-fx-text-fill: white;");
         nameField = new TextField();
         nameField.setPromptText("Entrez votre nom");
+        nameField.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-border-color: #666666;");
 
         Label lastNameLabel = new Label("Prenom:");
+        lastNameLabel.setStyle("-fx-text-fill: white;");
         lastNameField = new TextField();
         lastNameField.setPromptText("Entrez votre prenom");
+        lastNameField.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-border-color: #666666;");
 
         Label emailLabel = new Label("Email:");
+        emailLabel.setStyle("-fx-text-fill: white;");
         emailField = new TextField();
         emailField.setPromptText("Entrez votre email");
+        emailField.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-border-color: #666666;");
 
         Label passwordLabel = new Label("Mot de passe:");
+        passwordLabel.setStyle("-fx-text-fill: white;");
         passwordField = new PasswordField();
         passwordField.setPromptText("Entrez votre mot de passe");
+        passwordField.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-border-color: #666666;");
 
         Label typeLabel = new Label("Type:");
+        typeLabel.setStyle("-fx-text-fill: white;");
         typeComboBox = new ComboBox<>();
         typeComboBox.getItems().addAll("ETUDIANT", "PROFESSEUR");
         typeComboBox.setValue("ETUDIANT");
+        typeComboBox.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-border-color: #666666;");
 
-        // Style des champs
-        String fieldStyle = "-fx-background-radius: 5px; -fx-border-radius: 5px; " +
-                          "-fx-border-color: #cccccc; -fx-border-width: 1px; " +
-                          "-fx-padding: 8px; -fx-font-size: 13px;";
-        nameField.setStyle(fieldStyle);
-        lastNameField.setStyle(fieldStyle);
-        emailField.setStyle(fieldStyle);
-        passwordField.setStyle(fieldStyle);
-        typeComboBox.setStyle(fieldStyle);
-
-        // Boutons
         registerButton = new Button("S'inscrire");
         backButton = new Button("Retour");
 
-        // Style des boutons
-        registerButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; " +
+        registerButton.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; " +
                               "-fx-font-size: 14px; -fx-padding: 10px 20px; " +
-                              "-fx-background-radius: 5px; -fx-cursor: hand;");
-        backButton.setStyle("-fx-background-color: #9E9E9E; -fx-text-fill: white; " +
+                              "-fx-background-radius: 5px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, #2196F3, 10, 0.5, 0, 2);");
+        backButton.setStyle("-fx-background-color: #FFEB3B; -fx-text-fill: black; -fx-effect: dropshadow(gaussian, #FFEB3B, 10, 0.5, 0, 2);" + // Yellow button
                           "-fx-font-size: 14px; -fx-padding: 10px 20px; " +
                           "-fx-background-radius: 5px; -fx-cursor: hand;");
 
-        // Conteneur pour les boutons
         HBox buttonBox = new HBox(10);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.getChildren().addAll(backButton, registerButton);
 
-        // Ajout des elements au GridPane
         this.add(titleText, 0, 0, 2, 1);
         this.add(nameLabel, 0, 1);
         this.add(nameField, 0, 2, 2, 1);
@@ -98,13 +91,11 @@ public class RegisterView extends GridPane {
         this.add(typeComboBox, 0, 10, 2, 1);
         this.add(buttonBox, 0, 11, 2, 1);
 
-        // Gestionnaires d'evenements
         registerButton.setOnAction(e -> handleRegister());
-        backButton.setOnAction(e -> handleBack());//retourner a connexion
+        backButton.setOnAction(e -> handleBack());
     }
 
     private void handleRegister() {
-        // Validation des champs
         if (nameField.getText().isEmpty() || 
             lastNameField.getText().isEmpty() || 
             emailField.getText().isEmpty() || 
@@ -114,24 +105,16 @@ public class RegisterView extends GridPane {
         }
 
         try {
-           
-            // Creation d'un nouvel utilisateur
             Utilisateur newUser = new Utilisateur(
                 nameField.getText(),
                 lastNameField.getText(),
                 emailField.getText(),
                 typeComboBox.getValue(),
                 passwordField.getText()
-               
-                
-
-                
             );
 
-            // Tentative d'inscription
             if (utilisateurDAO.ajouter(newUser)) {
                 showAlert(Alert.AlertType.INFORMATION, "Succes", "Inscription reussie ! Vous pouvez maintenant vous connecter.");
-                // Retour à la page de connexion
                 handleBack();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "L'inscription a echoue. Veuillez reessayer.");
