@@ -4,6 +4,7 @@ CREATE TABLE utilisateurs (
     prenom VARCHAR(30) NOT NULL,
     email VARCHAR(30) UNIQUE NOT NULL,
     type VARCHAR(20) CHECK (type IN ('ETUDIANT', 'PROFESSEUR')) NOT NULL
+    password VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE evenements (
