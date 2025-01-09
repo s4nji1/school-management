@@ -27,7 +27,7 @@ public class LoginView extends GridPane {
         this.setAlignment(Pos.CENTER);
         this.setStyle("-fx-background-color: #2E2E2E;");
 
-        Text titleText = new Text("SE Connecter");
+        Text titleText = new Text("Se Connecter");
         titleText.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #FFEB3B;");
 
         Label emailLabel = new Label("Email:");
